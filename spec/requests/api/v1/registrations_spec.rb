@@ -16,14 +16,15 @@ RSpec.describe 'User Registration', type: :request do
   context 'returns an error message when user submits' do
     it 'non-matching password confirmation' do
       post '/api/v1/auth', params: {
-        email: 'example@craftacademy.com', password: 'password',
-        password_confirmation: 'wrongpassword'
+        email: 'example@craftacademy.se', password: 'password',
+        password_confirmation: 'wrong_password'
       }, headers: headers
 
-      expect(response_json['errors']['password_confirmation']).to eq
-      ['doesn\'t match Password']
+      expect(response_json['errors']['password_confirmation'])
+        .to eq ["doesn't match Password"]
       expect(response.status).to eq 422
     end
+
 
     it 'an invalid email adress' do
       post '/api/v1/auth', params: {
@@ -49,4 +50,4 @@ RSpec.describe 'User Registration', type: :request do
       expect(response.status).to eq 422
     end
   end
-end                                
+end
